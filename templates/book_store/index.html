@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load book_store_extras %}
+{% load thumbnail %}
+
+{% block title %}Index Page{% endblock title %}
+{% block style %}
+    {{ block.super }}
+    <style>
+        .portfolio-item {
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock style %}
+
+{% block body %}
+
+{% if book_list %}
+    <!-- Page Content -->
+    <div class="container">
+        {% for book in book_list %}
+            {% if forloop.first %}<div class="row">{% endif %}
+                <div class="col-md-4 portfolio-item">
+                {% thumbnail book.image "700x400" crop="center" as im %}
+                    <img align="center" class="img-responsive" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                {% endthumbnail %}
+                    <p>
+                        <br>
+                        <b>{{ book.author }} - {{ book.title }}</b><br>(<a href="{% url 'book_store:book_edit' book.id %}">manager</a>)
+                        (<a href="{% admin_edit book.id %}">admin</a>) ({{ book.price }}$) (ISBN : {{ book.ISBN }})
+                        <br /> <br />
+                        {{ book.info }}
+                    </p>
+                </div>
+            {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+            {% if forloop.last %}</div>{% endif %}
+        {% endfor %}
+    </div>
+
+{% else %}
+    <p>No books are available.</p>
+{% endif %}
+
+{% endblock body %}

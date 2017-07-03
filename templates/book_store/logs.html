@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Requests{% endblock title %}
+
+{% block body %}
+
+    <h1>Book manipulations</h1>
+
+    {% if lines %}
+        <ol>
+        {% for line in lines %}
+            <li>{{ line }}</li><br />
+        {% endfor %}
+        </ol>
+    {% else %}
+        <p>There were not any book manipulations.</p>
+    {% endif %}
+
+{% endblock body %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Requests{% endblock title %}
+
+{% block body %}
+
+    <h1>Requests</h1>
+
+    {% if request_list %}
+        <ol>
+        {% for request in request_list %}
+            <li>{{ request }}</li><br />
+        {% endfor %}
+        </ol>
+    {% else %}
+        <p>There were not any requests.</p>
+    {% endif %}
+
+{% endblock body %}
